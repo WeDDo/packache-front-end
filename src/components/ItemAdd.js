@@ -26,8 +26,7 @@ function ItemAdd() {
       body: JSON.stringify(postData),
     })
       .then(response => response.json())
-      .then(name => {
-        console.log('Success:', name);
+      .then(() => {
         navigate('/items');
       })
       .catch((error) => {

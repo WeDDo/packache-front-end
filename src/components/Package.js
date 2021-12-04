@@ -36,7 +36,7 @@ function Package(props) {
   }
 
   function updateDatabase() {
-    fetch(`http://127.0.0.1:8000/api/items/${id}`, {
+    fetch(`http://127.0.0.1:8000/api/orders/${orderId}/packages/${id}`, {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json',
@@ -70,7 +70,7 @@ function Package(props) {
         <div>{quantityDone}/{quantity}</div>
         <div>{item.name}</div>
       </Link>
-      <Link to={`update/packages/${id}`}><button type="button">Update</button></Link>
+      <Link to={`/orders/${orderId}/packages/update/${id}`}><button type="button">Update</button></Link>
       <button type="button" onClick={handleDeleteClick}>Delete</button>
     </div>
   );

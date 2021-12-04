@@ -14,6 +14,7 @@ function Item(props) {
     console.log(props)
     setId(props.id);
     setName(props.name);
+    setIsLoaded(true);
   }, [])
 
   function reloadPage(){
@@ -28,12 +29,11 @@ function Item(props) {
       },
     })
       .then(() => {
-        console.log('Success deleting!');
         navigate('/items');
         reloadPage();
       })
       .catch((error) => {
-        console.log('Error:', error);
+        setError(error);
         navigate('/items');
       });
   }
@@ -50,7 +50,7 @@ function Item(props) {
   if (!isLoaded) {
     return <div>Loading...</div>;
   }
-  
+
   return (
     <div>
       <Link to={`/items/${id}`}>

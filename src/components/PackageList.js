@@ -13,7 +13,6 @@ class PackageList extends React.Component {
       orderId: props.orderId,
       packages: []
     };
-    console.log(props)
   }
 
   //method runs after the component output has been rendered to the DOM

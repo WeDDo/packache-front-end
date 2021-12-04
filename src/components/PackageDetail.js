@@ -16,12 +16,9 @@ const PackageDetail = () => {
       .then(res => res.json())
       .then(
         (result) => {
-          console.log('resultino');
-          console.log(result.item);
           setIsLoaded(true);
           setPack(result);
           setItem(result.item);
-          setIsLoaded(true);
         },
         (error) => {
           setIsLoaded(true);

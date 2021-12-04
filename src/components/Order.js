@@ -55,9 +55,9 @@ function Order(props) {
   }
 
   const packageList = packages.map((pack) =>
-    <li key={pack.id}>
-      {pack.id} {pack.quantity}
-    </li>
+    <div>
+      -{pack.item.name} {pack.quantity_done}/{pack.quantity}
+    </div>
   );
 
   if (error) {

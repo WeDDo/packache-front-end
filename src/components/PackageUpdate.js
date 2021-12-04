@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, Link, useParams } from "react-router-dom";
 
-function PackageAdd() {
+function PackageUpdate() {
   const [error, setError] = useState(null);
   const [isLoaded, setIsLoaded] = useState(false);
   const [quantityDone, setQuantityDone] = useState([]);
@@ -10,11 +10,26 @@ function PackageAdd() {
   const [items, setItems] = useState([]);
 
   const params = useParams();
+  let id = params['id'];
   let orderId = params['orderId'];
 
   const navigate = useNavigate();
 
   useEffect(() => {
+    fetch(`http://127.0.0.1:8000/api/orders/${orderId}/packages/${id}`)
+      .then(res => res.json())
+      .then(
+        (result) => {
+          setIsLoaded(true);
+          setQuantityDone(result.quantity_done);
+          setQuantity(result.quantity);
+          setItemId(result.item.id);
+        },
+        (error) => {
+          setIsLoaded(true);
+          setError(error);
+        }
+      )
     fetchItems();
   }, []);
 
@@ -43,6 +58,7 @@ function PackageAdd() {
       .then(res => res.json())
       .then(
         (result) => {
+          console.log(result)
           setItems(result);
           setIsLoaded(true);
         },
@@ -56,8 +72,8 @@ function PackageAdd() {
   function updateDatabase() {
     const postData = { quantity_done: quantityDone, quantity, item_id: itemId, order_id: orderId };
     console.log(postData);
-    fetch(`http://127.0.0.1:8000/api/orders/${orderId}/packages/`, {
-      method: 'POST',
+    fetch(`http://127.0.0.1:8000/api/orders/${orderId}/packages/${id}`, {
+      method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
       },
@@ -65,6 +81,7 @@ function PackageAdd() {
     })
       .then(response => response.json())
       .then(() => {
+        console.log('Success!');
         navigate(`/orders/${orderId}`);
       })
       .catch((error) => {
@@ -91,11 +108,11 @@ function PackageAdd() {
       <form onSubmit={handleSubmit}>
         <label>
           Quantity done:
-          <input name="quantity-done" type="number" onChange={handleInputQuantityDoneChange}></input>
+          <input name="quantity-done" type="number" value={quantityDone} onChange={handleInputQuantityDoneChange}></input>
         </label>
         <label>
           Quantity:
-          <input name="quantity" type="number" onChange={handleInputQuantityChange}></input>
+          <input name="quantity" type="number" value={quantity} onChange={handleInputQuantityChange}></input>
         </label>
         <label>
           Item:
@@ -110,4 +127,4 @@ function PackageAdd() {
 
   )
 }
-export default PackageAdd;
+export default PackageUpdate;

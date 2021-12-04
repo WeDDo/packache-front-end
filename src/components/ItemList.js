@@ -19,6 +19,7 @@ class ItemList extends React.Component {
       .then(res => res.json())
       .then(
         (result) => {
+          console.log(result);
           this.setState({
             isLoaded: true,
             items: result
@@ -49,9 +50,8 @@ class ItemList extends React.Component {
       return <div>Loading...</div>;
     }
     if (items) {
-      const itemList = this.state.items.map((item) =>
+      const itemList = items.map((item) =>
         <li key={item.id}>
-          
           <Item id={item.id} name={item.name} />
         </li>
       );
