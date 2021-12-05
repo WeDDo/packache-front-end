@@ -1,10 +1,22 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate, Link } from "react-router-dom";
 
 function OrderAdd() {
   const [recipient, setRecipient] = useState([]);
 
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if(getToken()){
+      navigate('/');
+    }
+  })
+
+  function getToken(){
+    const tokenString = localStorage.getItem('token');
+    const userToken = JSON.parse(tokenString);
+    return userToken?.access_token;
+  }
 
   function handleSubmit(event) {
     event.preventDefault();

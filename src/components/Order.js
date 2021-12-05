@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Link, useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom';
 import ItemUpdate from './ItemUpdate';
 
 function Order(props) {
@@ -54,18 +54,19 @@ function Order(props) {
     updateDatabase();
   }
 
-  const packageList = packages.map((pack) =>
-    <div>
-      -{pack.item.name} {pack.quantity_done}/{pack.quantity}
-    </div>
-  );
-
   if (error) {
     return <div>Error: {error.message}</div>;
   }
   if (!isLoaded) {
     return <div>Loading...</div>;
   }
+
+  if(packages){
+    const packageList = packages.map((pack) =>
+    <div>
+      -{pack.item.name} {pack.quantity_done}/{pack.quantity}
+    </div>
+  );
 
   return (
     <div>
@@ -78,7 +79,7 @@ function Order(props) {
       <button type="button" onClick={handleDeleteClick}>Delete</button>
     </div>
   );
-
+  }
 }
 
 export default Order;

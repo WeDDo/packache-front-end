@@ -15,8 +15,18 @@ function PackageAdd() {
   const navigate = useNavigate();
 
   useEffect(() => {
+    if(!getToken()){
+      navigate('/login');
+    }
+
     fetchItems();
   }, []);
+
+  function getToken(){
+    const tokenString = localStorage.getItem('token');
+    const userToken = JSON.parse(tokenString);
+    return userToken?.access_token;
+  }
 
   function handleSubmit(event) {
     event.preventDefault();

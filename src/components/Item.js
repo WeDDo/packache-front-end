@@ -11,11 +11,21 @@ function Item(props) {
   const navigate = useNavigate();
 
   useEffect(() => {
+    if(!getToken()){
+      navigate('/login');
+    }
+
     console.log(props)
     setId(props.id);
     setName(props.name);
     setIsLoaded(true);
   }, [])
+
+  function getToken(){
+    const tokenString = localStorage.getItem('token');
+    const userToken = JSON.parse(tokenString);
+    return userToken?.access_token;
+  }
 
   function reloadPage(){
     window.location.reload();

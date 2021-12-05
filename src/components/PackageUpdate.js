@@ -16,6 +16,10 @@ function PackageUpdate() {
   const navigate = useNavigate();
 
   useEffect(() => {
+    if(!getToken()){
+      navigate('/login');
+    }
+
     fetch(`http://127.0.0.1:8000/api/orders/${orderId}/packages/${id}`)
       .then(res => res.json())
       .then(
@@ -32,6 +36,12 @@ function PackageUpdate() {
       )
     fetchItems();
   }, []);
+
+  function getToken(){
+    const tokenString = localStorage.getItem('token');
+    const userToken = JSON.parse(tokenString);
+    return userToken?.access_token;
+  }
 
   function handleSubmit(event) {
     event.preventDefault();

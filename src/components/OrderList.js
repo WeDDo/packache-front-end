@@ -1,72 +1,68 @@
-import React from 'react';
-import { Link } from 'react-router-dom'
+import React, {useState, useEffect} from 'react';
+import { Link, useNavigate } from 'react-router-dom'
 
 import Order from './Order';
 
-class OrderList extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      error: null,
-      isLoaded: false,
-      orders: []
-    };
-  }
 
-  //method runs after the component output has been rendered to the DOM
-  componentDidMount() {
+function OrderList(props){
+  const [orders, setOrders] = useState([]);
+  const [error, setError] = useState(null);
+  const [isLoaded, setIsLoaded] = useState(false);
+
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if(!getToken()){
+      navigate('/login');
+    }
+
     fetch('http://127.0.0.1:8000/api/orders')
       .then(res => res.json())
       .then(
         (result) => {
-          this.setState({
-            isLoaded: true,
-            orders: result
-          });
+          console.log(result);
+          setIsLoaded(true);
+          setOrders(result);
         },
         (error) => {
-          this.setState({
-            isLoaded: true,
-            error
-          });
+          setError(error);
+          setIsLoaded(true);
         }
       )
+  }, [])
+
+  function getToken(){
+    const tokenString = localStorage.getItem('token');
+    const userToken = JSON.parse(tokenString);
+    return userToken?.access_token;
   }
 
-  componentWillUnmount() {
-
+  if (error) {
+    return <div>Error: {error.message}</div>;
   }
 
-  render() {
+  if (!isLoaded) {
+    return <div>Loading...</div>;
+  }
 
-    const { error, isLoaded, orders: orders } = this.state;
+  if (orders) {
+    const orderList = orders.map((order) =>
+      <li key={order.id}>
+        <Order id={order.id} recipient={order.recipient} />
+      </li>
+  );
 
-    if (error) {
-      return <div>Error: {error.message}</div>;
-    }
+    return (
+      <div>
+        <Link to="/orders/add">
+          <button className="ui button blue right">Create order</button>
+        </Link>
+        <ul>
+          {orderList}
+        </ul>
+      </div>
 
-    if (!isLoaded) {
-      return <div>Loading...</div>;
-    }
-    if (orders) {
-      const orderList = this.state.orders.map((order) =>
-        <li key={order.id}>
-          <Order id={order.id} recipient={order.recipient} />
-        </li>
-      );
-
-      return (
-        <div>
-          <Link to="/orders/add">
-            <button className="ui button blue right">Create order</button>
-          </Link>
-          <ul>
-            {orderList}
-          </ul>
-        </div>
-
-      );
-    }
+    );
   }
 }
 

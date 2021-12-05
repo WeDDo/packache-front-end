@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useParams, Link  } from 'react-router-dom';
+import { useParams, Link, useNavigate  } from 'react-router-dom';
 
 const ItemDetail = () => {
   const params = useParams();
@@ -9,7 +9,13 @@ const ItemDetail = () => {
   const [isLoaded, setIsLoaded] = useState(false);
   const [item, setItem] = useState([]);
 
+  const navigate = useNavigate();
+
   useEffect(() => {
+    if(!getToken()){
+      navigate('/login');
+    }
+
     fetch(`http://127.0.0.1:8000/api/items/${id}`)
       .then(res => res.json())
       .then(
@@ -25,6 +31,12 @@ const ItemDetail = () => {
         }
       )
   }, [])
+
+  function getToken(){
+    const tokenString = localStorage.getItem('token');
+    const userToken = JSON.parse(tokenString);
+    return userToken?.access_token;
+  }
 
   if (error) {
     return <div>Error: {error.message}</div>;

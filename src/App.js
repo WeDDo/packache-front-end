@@ -1,8 +1,5 @@
-import {
-  Routes,
-  Route,
-  BrowserRouter
-} from "react-router-dom";
+import React, { useState } from 'react';
+import { Routes, Route, BrowserRouter } from "react-router-dom";
 
 import ItemList from './components/ItemList';
 import ItemDetail from './components/ItemDetail';
@@ -19,11 +16,30 @@ import PackageDetail from './components/PackageDetail';
 import PackageAdd from './components/PackageAdd';
 import PackageUpdate from './components/PackageUpdate';
 
-function App() {
+import Login from "./components/auth/Login";
+import useToken from './components/app/useToken';
+import Register from './components/auth/Register';
 
+/*
+function setToken(userToken){
+  localStorage.setItem('token', JSON.stringify(userToken));
+}
+
+function getToken(){
+  const tokenString = localStorage.getItem('token');
+  const userToken = JSON.parse(tokenString);
+  return userToken?.access_token;
+}
+*/
+function App() {
+  const { token, setToken } = useToken();
+  
   return (
     <BrowserRouter>
       <Routes>
+        <Route path="/login" element={< Login setToken={setToken} />} />
+        <Route path="/register" element={< Register />} />
+
         <Route path="/items" element={<ItemList />} />
         <Route path="/items/:id" element={<ItemDetail />} />
         <Route path="/items/update/:id" element={<ItemUpdate />} />

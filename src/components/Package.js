@@ -26,7 +26,7 @@ function Package(props) {
         },
         (error) => {
           setIsLoaded(true);
-          setError(true);
+          setError(error);
         }
       )
   }, [])

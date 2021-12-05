@@ -12,6 +12,10 @@ function ItemUpdate() {
   const navigate = useNavigate();
 
   useEffect(() => {
+    if(!getToken()){
+      navigate('/login');
+    }
+
     fetch(`http://127.0.0.1:8000/api/items/${id}`)
       .then(res => res.json())
       .then(
@@ -26,9 +30,13 @@ function ItemUpdate() {
           setError(error);
         }
       )
-
-      
   }, []);
+
+  function getToken(){
+    const tokenString = localStorage.getItem('token');
+    const userToken = JSON.parse(tokenString);
+    return userToken?.access_token;
+  }
 
   function handleSubmit(event) {
     event.preventDefault();
