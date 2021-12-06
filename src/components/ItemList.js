@@ -4,7 +4,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import Item from './Item';
 
 
-function ItemList(props){
+function ItemList(props) {
   const [items, setItems] = useState([]);
   const [error, setError] = useState(null);
   const [isLoaded, setIsLoaded] = useState(false);
@@ -12,7 +12,7 @@ function ItemList(props){
   const navigate = useNavigate();
 
   useEffect(() => {
-    if(!getToken()){
+    if (!getToken()) {
       navigate('/login');
     }
 
@@ -30,7 +30,7 @@ function ItemList(props){
       )
   }, [])
 
-  function getToken(){
+  function getToken() {
     const tokenString = localStorage.getItem('token');
     const userToken = JSON.parse(tokenString);
     return userToken?.access_token;
@@ -42,22 +42,32 @@ function ItemList(props){
   if (!isLoaded) {
     return <div>Loading...</div>;
   }
-  
+
   if (items) {
     const itemList = items.map((item) =>
-      <li key={item.id}>
-        <Item id={item.id} name={item.name} />
-      </li>
+      <Item id={item.id} name={item.name} />
     );
 
     return (
       <div>
         <Link to="/items/add">
-          <button className="ui button blue right">Add Item</button>
+          <button className="btn btn-success m-1">Add Item</button>
         </Link>
-        <ul>
-          {itemList}
-        </ul>
+
+        <table className="table">
+          <thead className="thead-light">
+            <tr>
+              <th scope="col">Id</th>
+              <th scope="col">Name</th>
+              <th scope="col">View</th>
+              <th scope="col">Update</th>
+              <th scope="col">Delete</th>
+            </tr>
+          </thead>
+          <tbody>
+            {itemList}
+          </tbody>
+        </table>
       </div>
     );
   }

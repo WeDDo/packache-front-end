@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useParams, Link  } from 'react-router-dom';
+import { useParams, Link, useNavigate  } from 'react-router-dom';
 
 const PackageDetail = () => {
   const params = useParams();
@@ -11,7 +11,13 @@ const PackageDetail = () => {
   const [pack, setPack] = useState([]);
   const [item, setItem] = useState([]);
 
+  const navigate = useNavigate();
+
   useEffect(() => {
+    if(!getToken()){
+      navigate('/login');
+    }
+
     fetch(`http://127.0.0.1:8000/api/orders/${orderId}/packages/${id}`)
       .then(res => res.json())
       .then(
@@ -27,6 +33,12 @@ const PackageDetail = () => {
       )
   }, [])
 
+  function getToken(){
+    const tokenString = localStorage.getItem('token');
+    const userToken = JSON.parse(tokenString);
+    return userToken?.access_token;
+  }
+
   if (error) {
     return <div>Error: {error.message}</div>;
   }
@@ -38,11 +50,19 @@ const PackageDetail = () => {
     return (
       <div>
         <Link to={`/orders/${orderId}`}>
-          <button className="ui button blue right">Back</button>
+          <button className="btn btn-secondary m-1">Back</button>
         </Link>
-        <div>ID: {id}, ORDER_ID: {orderId}</div>
-        <div>{pack.quantity_done}/{pack.quantity}</div>
-        <div>{item.name}</div>
+        <div class="card m-1" style={{width:"18rem"}}>
+          <div class="card-header">
+            Package details
+          </div>
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item">Id: {id}</li>
+            <li class="list-group-item">Order Id: {orderId}</li>
+            <li class="list-group-item">Progress: {pack.quantity_done}/{pack.quantity}</li>
+            <li class="list-group-item">Item: {item.name}</li>
+          </ul>
+        </div>
       </div>
     );
   }

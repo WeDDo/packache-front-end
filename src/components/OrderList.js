@@ -1,10 +1,10 @@
-import React, {useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom'
 
 import Order from './Order';
 
 
-function OrderList(props){
+function OrderList(props) {
   const [orders, setOrders] = useState([]);
   const [error, setError] = useState(null);
   const [isLoaded, setIsLoaded] = useState(false);
@@ -12,7 +12,7 @@ function OrderList(props){
   const navigate = useNavigate();
 
   useEffect(() => {
-    if(!getToken()){
+    if (!getToken()) {
       navigate('/login');
     }
 
@@ -20,7 +20,6 @@ function OrderList(props){
       .then(res => res.json())
       .then(
         (result) => {
-          console.log(result);
           setIsLoaded(true);
           setOrders(result);
         },
@@ -31,7 +30,7 @@ function OrderList(props){
       )
   }, [])
 
-  function getToken(){
+  function getToken() {
     const tokenString = localStorage.getItem('token');
     const userToken = JSON.parse(tokenString);
     return userToken?.access_token;
@@ -47,21 +46,30 @@ function OrderList(props){
 
   if (orders) {
     const orderList = orders.map((order) =>
-      <li key={order.id}>
-        <Order id={order.id} recipient={order.recipient} />
-      </li>
-  );
+      <Order id={order.id} recipient={order.recipient} />
+    );
 
     return (
       <div>
         <Link to="/orders/add">
-          <button className="ui button blue right">Create order</button>
+          <button className="btn btn-success m-1">Create order</button>
         </Link>
-        <ul>
-          {orderList}
-        </ul>
+        <table className="table">
+          <thead className="thead-light">
+            <tr>
+              <th scope="col">Id</th>
+              <th scope="col">Recipient</th>
+              <th scope="col">Packages</th>
+              <th scope="col">View</th>
+              <th scope="col">Update</th>
+              <th scope="col">Delete</th>
+            </tr>
+          </thead>
+          <tbody>
+            {orderList}
+          </tbody>
+        </table>
       </div>
-
     );
   }
 }

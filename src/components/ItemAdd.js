@@ -7,12 +7,12 @@ function ItemAdd() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if(!getToken()){
+    if (!getToken()) {
       navigate('/login');
     }
   })
 
-  function getToken(){
+  function getToken() {
     const tokenString = localStorage.getItem('token');
     const userToken = JSON.parse(tokenString);
     return userToken?.access_token;
@@ -49,17 +49,19 @@ function ItemAdd() {
   return (
     <div>
       <Link to="/items">
-        <button className="ui button blue right">Back</button>
+        <button className="btn btn-secondary m-1">Back</button>
       </Link>
-      <form onSubmit={handleSubmit}>
-        <label>
-          Name:
-          <input name="name" type="text" onChange={handleInputChange}></input>
-        </label>
-        <input type="submit" value="Submit" />
-      </form>
-    </div>
 
+      <div className="w-25 mx-auto pt-2">
+        <form onSubmit={handleSubmit}>
+          <div class="mb-3">
+            <label for="name" class="form-label">Name</label>
+            <input name="name" type="text" class="form-control" id="name" onChange={handleInputChange} />
+          </div>
+          <input type="submit" value="Submit" class="btn btn-primary"></input>
+        </form>
+      </div>
+    </div>
   )
 }
 export default ItemAdd;

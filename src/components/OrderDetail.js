@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useParams, Link, useNavigate  } from 'react-router-dom';
+import { useParams, Link, useNavigate } from 'react-router-dom';
 import PackageList from './PackageList';
 
 const OrderDetail = () => {
@@ -13,7 +13,7 @@ const OrderDetail = () => {
   const [order, setOrder] = useState([]);
 
   useEffect(() => {
-    if(!getToken()){
+    if (!getToken()) {
       navigate('/login');
     }
 
@@ -33,7 +33,7 @@ const OrderDetail = () => {
       )
   }, [])
 
-  function getToken(){
+  function getToken() {
     const tokenString = localStorage.getItem('token');
     const userToken = JSON.parse(tokenString);
     return userToken?.access_token;
@@ -50,12 +50,21 @@ const OrderDetail = () => {
     return (
       <div>
         <Link to="/orders">
-          <button className="ui button blue right">Back</button>
+          <button className="btn btn-secondary m-1">Back</button>
         </Link>
-        <div>ID: {order.id}</div>
-        <div>Name: {order.recipient}</div>
+        <div class="card m-1" style={{width:"18rem"}}>
+          <div class="card-header">
+            Order details
+          </div>
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item">Id: {order.id}</li>
+            <li class="list-group-item">Recipient: {order.recipient}</li>
+          </ul>
+        </div>
         <div><PackageList orderId={id} /></div>
       </div>
+
+
     );
   }
 }

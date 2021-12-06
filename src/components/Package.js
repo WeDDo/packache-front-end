@@ -31,7 +31,7 @@ function Package(props) {
       )
   }, [])
 
-  function reloadPage(){
+  function reloadPage() {
     window.location.reload();
   }
 
@@ -64,17 +64,15 @@ function Package(props) {
   }
 
   return (
-    <div>
-      <Link to={`/orders/${orderId}/packages/${id}`}>
-        <div>ID: {id}, ORDER_ID: {orderId}</div>
-        <div>{quantityDone}/{quantity}</div>
-        <div>{item.name}</div>
-      </Link>
-      <Link to={`/orders/${orderId}/packages/update/${id}`}><button type="button">Update</button></Link>
-      <button type="button" onClick={handleDeleteClick}>Delete</button>
-    </div>
+    <tr>
+      <td>{id}</td>
+      <td>{quantityDone}/{quantity}</td>
+      <td>{item.name}</td>
+      <td><Link to={`/orders/${orderId}/packages/${id}`}><button type="button" className="btn btn-primary">View</button></Link></td>
+      <td><Link to={`/orders/${orderId}/packages/update/${id}`}><button type="button" className="btn btn-secondary">Update</button></Link></td>
+      <td><button type="button" onClick={handleDeleteClick} className="btn btn-danger">Delete</button></td>
+    </tr>
   );
-
 }
 
 export default Package;

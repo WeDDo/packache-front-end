@@ -16,7 +16,7 @@ function PackageUpdate() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if(!getToken()){
+    if (!getToken()) {
       navigate('/login');
     }
 
@@ -37,7 +37,7 @@ function PackageUpdate() {
     fetchItems();
   }, []);
 
-  function getToken(){
+  function getToken() {
     const tokenString = localStorage.getItem('token');
     const userToken = JSON.parse(tokenString);
     return userToken?.access_token;
@@ -113,26 +113,28 @@ function PackageUpdate() {
   return (
     <div>
       <Link to={`/orders/${orderId}`}>
-        <button className="ui button blue right">Back</button>
+        <button className="btn btn-secondary m-1">Back</button>
       </Link>
-      <form onSubmit={handleSubmit}>
-        <label>
-          Quantity done:
-          <input name="quantity-done" type="number" value={quantityDone} onChange={handleInputQuantityDoneChange}></input>
-        </label>
-        <label>
-          Quantity:
-          <input name="quantity" type="number" value={quantity} onChange={handleInputQuantityChange}></input>
-        </label>
-        <label>
-          Item:
-          <select value={itemId} onChange={handleInputItemChange}>
-          <option value="" selected disabled hidden>Choose item</option>
-            {itemOptions}
-          </select>
-        </label>
-        <input type="submit" value="Submit" />
-      </form>
+      <div className="w-25 mx-auto pt-2">
+        <form onSubmit={handleSubmit}>
+          <div class="mb-3">
+            <label for="quantityDone" class="form-label">Quantity done</label>
+            <input name="quantity-done" type="number" class="form-control" id="quantityDone" aria-describedby="quantityDone" value={quantityDone} onChange={handleInputQuantityDoneChange} />
+          </div>
+          <div class="mb-3">
+            <label for="quantity" class="form-label">Quantity</label>
+            <input name="quantity" type="number" class="form-control" id="quantity" value={quantity} onChange={handleInputQuantityChange} />
+          </div>
+          <div class="mb-3">
+            <label for="itemSelect" class="form-label">Item</label>
+            <select id="itemSelect" class="form-control" value={itemId} onChange={handleInputItemChange}>
+              <option value="" selected disabled hidden>Choose item</option>
+              {itemOptions}
+            </select>
+          </div>
+          <input type="submit" value="Submit" class="btn btn-primary"></input>
+        </form>
+      </div>
     </div>
 
   )

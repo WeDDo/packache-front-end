@@ -11,7 +11,7 @@ function Item(props) {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if(!getToken()){
+    if (!getToken()) {
       navigate('/login');
     }
 
@@ -21,13 +21,13 @@ function Item(props) {
     setIsLoaded(true);
   }, [])
 
-  function getToken(){
+  function getToken() {
     const tokenString = localStorage.getItem('token');
     const userToken = JSON.parse(tokenString);
     return userToken?.access_token;
   }
 
-  function reloadPage(){
+  function reloadPage() {
     window.location.reload();
   }
 
@@ -62,14 +62,13 @@ function Item(props) {
   }
 
   return (
-    <div>
-      <Link to={`/items/${id}`}>
-        <div>ID: {id}</div>
-        <div>Name: {name}</div>
-      </Link>
-      <Link to={`update/${id}`}><button type="button">Update</button></Link>
-      <button type="button" onClick={handleDeleteClick}>Delete</button>
-    </div>
+    <tr>
+      <td>{id}</td>
+      <td>{name}</td>
+      <td><Link to={`/items/${id}`}><button type="button" className="btn btn-primary">View</button></Link></td>
+      <td><Link to={`update/${id}`}><button type="button" className="btn btn-secondary">Update</button></Link></td>
+      <td><button type="button" onClick={handleDeleteClick} className="btn btn-danger">Delete</button></td>
+    </tr>
   );
 
 }

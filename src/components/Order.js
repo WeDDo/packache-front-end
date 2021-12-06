@@ -61,24 +61,24 @@ function Order(props) {
     return <div>Loading...</div>;
   }
 
-  if(packages){
+  if (packages) {
     const packageList = packages.map((pack) =>
-    <div>
-      -{pack.item.name} {pack.quantity_done}/{pack.quantity}
-    </div>
-  );
+      <li className="list-group-item">
+        {pack.item.name} {pack.quantity_done}/{pack.quantity}
+      </li>
+    );
 
-  return (
-    <div>
-      <Link to={`/orders/${id}`}>
-        <div>ID: {id}</div>
-        <div>Recipient: {recipient}</div>
-        <div>{packageList}</div>
-      </Link>
-      <Link to={`update/${id}`}><button type="button">Update</button></Link>
-      <button type="button" onClick={handleDeleteClick}>Delete</button>
-    </div>
-  );
+    return (
+      <tr>
+        <td>{id}</td>
+        <td>{recipient}</td>
+        <td>{packageList}</td>
+        <td><Link to={`/orders/${id}`}><button type="button" className="btn btn-primary">View</button></Link></td>
+        <td><Link to={`update/${id}`}><button type="button" className="btn btn-secondary">Update</button></Link></td>
+        <td><button type="button" onClick={handleDeleteClick} className="btn btn-danger">Delete</button></td>
+      </tr>
+    );
+
   }
 }
 

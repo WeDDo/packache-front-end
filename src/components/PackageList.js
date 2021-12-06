@@ -45,19 +45,29 @@ function PackageList(props) {
 
   if (packages) {
     const packageList = packages.map((pack) =>
-      <li key={pack.id}>
-        <Package id={pack.id} orderId={props.orderId} />
-      </li>
+      <Package id={pack.id} orderId={props.orderId} />
     );
 
     return (
       <div>
         <Link to={`/orders/${props.orderId}/packages/add`}>
-          <button className="ui button blue right">Add package</button>
+          <button className="btn btn-success m-1">Add package</button>
         </Link>
-        <ul>
-          {packageList}
-        </ul>
+        <table className="table">
+          <thead className="thead-light">
+            <tr>
+              <th scope="col">Id</th>
+              <th scope="col">Quantity</th>
+              <th scope="col">Item</th>
+              <th scope="col">View</th>
+              <th scope="col">Update</th>
+              <th scope="col">Delete</th>
+            </tr>
+          </thead>
+          <tbody>
+            {packageList}
+          </tbody>
+        </table>
       </div>
     );
   }

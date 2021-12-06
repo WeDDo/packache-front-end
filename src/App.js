@@ -20,42 +20,38 @@ import Login from "./components/auth/Login";
 import useToken from './components/app/useToken';
 import Register from './components/auth/Register';
 
-/*
-function setToken(userToken){
-  localStorage.setItem('token', JSON.stringify(userToken));
-}
+import Header from './components/app/Header';
+import Footer from './components/app/Footer';
 
-function getToken(){
-  const tokenString = localStorage.getItem('token');
-  const userToken = JSON.parse(tokenString);
-  return userToken?.access_token;
-}
-*/
 function App() {
   const { token, setToken } = useToken();
-  
+
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/login" element={< Login setToken={setToken} />} />
-        <Route path="/register" element={< Register />} />
+    <div>
+      <BrowserRouter>
+        <Header />
+        <Footer />
+        <Routes>
+          <Route path="/login" element={< Login setToken={setToken} />} />
+          <Route path="/register" element={< Register />} />
 
-        <Route path="/items" element={<ItemList />} />
-        <Route path="/items/:id" element={<ItemDetail />} />
-        <Route path="/items/update/:id" element={<ItemUpdate />} />
-        <Route path="/items/add" element={<ItemAdd />} />
+          <Route path="/items" element={<ItemList />} />
+          <Route path="/items/:id" element={<ItemDetail />} />
+          <Route path="/items/update/:id" element={<ItemUpdate />} />
+          <Route path="/items/add" element={<ItemAdd />} />
 
-        <Route path="/orders" element={<OrderList />} />
-        <Route path="/orders/:id" element={<OrderDetail />} />
-        <Route path="/orders/update/:id" element={<OrderUpdate />} />
-        <Route path="/orders/add" element={<OrderAdd />} />
+          <Route path="/orders" element={<OrderList />} />
+          <Route path="/orders/:id" element={<OrderDetail />} />
+          <Route path="/orders/update/:id" element={<OrderUpdate />} />
+          <Route path="/orders/add" element={<OrderAdd />} />
 
-        <Route path="/orders/:id/packages" element={<PackageList />} />
-        <Route path="/orders/:orderId/packages/:id" element={<PackageDetail />} />
-        <Route path="/orders/:orderId/packages/update/:id" element={<PackageUpdate />} />
-        <Route path="/orders/:orderId/packages/add" element={<PackageAdd />} />
-      </Routes>
-    </BrowserRouter>
+          <Route path="/orders/:id/packages" element={<PackageList />} />
+          <Route path="/orders/:orderId/packages/:id" element={<PackageDetail />} />
+          <Route path="/orders/:orderId/packages/update/:id" element={<PackageUpdate />} />
+          <Route path="/orders/:orderId/packages/add" element={<PackageAdd />} />
+        </Routes>
+      </BrowserRouter>
+    </div>
   );
 }
 

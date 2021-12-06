@@ -77,17 +77,19 @@ function ItemUpdate() {
   return (
     <div>
       <Link to="/items">
-        <button className="ui button blue right">Back</button>
+        <button className="btn btn-secondary m-1">Back</button>
       </Link>
-      <form onSubmit={handleSubmit}>
-        <label>
-          Name:
-          <input name="name" type="text" onChange={handleInputChange} value={name}></input>
-        </label>
-        <input type="submit" value="Submit" />
-      </form>
-    </div>
 
+      <div className="w-25 mx-auto pt-2">
+        <form onSubmit={handleSubmit}>
+          <div class="mb-3">
+            <label for="name" class="form-label">Name</label>
+            <input name="name" type="text" class="form-control" value={name} id="name" onChange={handleInputChange} />
+          </div>
+          <input type="submit" value="Submit" class="btn btn-primary"></input>
+        </form>
+      </div>
+    </div>
   )
 }
 export default ItemUpdate;

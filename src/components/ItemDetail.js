@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useParams, Link, useNavigate  } from 'react-router-dom';
+import { useParams, Link, useNavigate } from 'react-router-dom';
 
 const ItemDetail = () => {
   const params = useParams();
@@ -12,7 +12,7 @@ const ItemDetail = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if(!getToken()){
+    if (!getToken()) {
       navigate('/login');
     }
 
@@ -32,7 +32,7 @@ const ItemDetail = () => {
       )
   }, [])
 
-  function getToken(){
+  function getToken() {
     const tokenString = localStorage.getItem('token');
     const userToken = JSON.parse(tokenString);
     return userToken?.access_token;
@@ -49,10 +49,17 @@ const ItemDetail = () => {
     return (
       <div>
         <Link to="/items">
-          <button className="ui button blue right">Back</button>
+          <button className="btn btn-secondary m-1">Back</button>
         </Link>
-        <div>ID: {item.id}</div>
-        <div>Name: {item.name}</div>
+        <div class="card m-1" style={{width:"18rem"}}>
+          <div class="card-header">
+            Item details
+          </div>
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item">Id: {item.id}</li>
+            <li class="list-group-item">Name: {item.name}</li>
+          </ul>
+        </div>
       </div>
     );
   }

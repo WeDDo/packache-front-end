@@ -13,7 +13,7 @@ function OrderUpdate() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if(!getToken()){
+    if (!getToken()) {
       navigate('/login');
     }
 
@@ -31,10 +31,10 @@ function OrderUpdate() {
           setIsLoaded(true);
           setError(error);
         }
-      )  
+      )
   }, []);
 
-  function getToken(){
+  function getToken() {
     const tokenString = localStorage.getItem('token');
     const userToken = JSON.parse(tokenString);
     return userToken?.access_token;
@@ -81,17 +81,18 @@ function OrderUpdate() {
   return (
     <div>
       <Link to="/orders">
-        <button className="ui button blue right">Back</button>
+        <button className="btn btn-secondary m-1">Back</button>
       </Link>
-      <form onSubmit={handleSubmit}>
-        <label>
-          Recipient:
-          <input name="name" type="text" onChange={handleInputChange} value={recipient}></input>
-        </label>
-        <input type="submit" value="Submit" />
-      </form>
+      <div className="w-25 mx-auto pt-2">
+        <form onSubmit={handleSubmit}>
+          <div class="mb-3">
+            <label for="recipient" class="form-label">Recipient</label>
+            <input name="recipient" type="text" class="form-control" id="recipient" value={recipient} onChange={handleInputChange} />
+          </div>
+          <input type="submit" value="Submit" class="btn btn-primary"></input>
+        </form>
+      </div>
     </div>
-
   )
 }
 export default OrderUpdate;
