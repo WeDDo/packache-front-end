@@ -64,7 +64,9 @@ function PackageUpdate() {
   }
 
   function fetchItems() {
-    fetch('http://127.0.0.1:8000/api/items')
+    let headers = {"Content-Type":"application/json", "Authorization":`Bearer ${getToken()}`};
+
+    fetch('http://127.0.0.1:8000/api/items', {headers, })
       .then(res => res.json())
       .then(
         (result) => {
@@ -86,6 +88,7 @@ function PackageUpdate() {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
+        "Authorization":`Bearer ${getToken()}`
       },
       body: JSON.stringify(postData),
     })

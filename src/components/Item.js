@@ -27,15 +27,24 @@ function Item(props) {
     return userToken?.access_token;
   }
 
+  function getUserRole(){
+    const tokenString = localStorage.getItem('token');
+    const userToken = JSON.parse(tokenString);
+    return userToken?.user.role;
+  }
+
   function reloadPage() {
     window.location.reload();
   }
 
   function updateDatabase() {
+
+    
     fetch(`http://127.0.0.1:8000/api/items/${id}`, {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json',
+        "Authorization":`Bearer ${getToken()}`
       },
     })
       .then(() => {

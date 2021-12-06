@@ -30,10 +30,14 @@ function OrderAdd() {
 
   function updateDatabase() {
     const postData = { recipient: recipient };
+
+    let headers = {"Content-Type":"application/json", };
+
     fetch('http://127.0.0.1:8000/api/orders', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
+        "Authorization":`Bearer ${getToken()}`
       },
       body: JSON.stringify(postData),
     })

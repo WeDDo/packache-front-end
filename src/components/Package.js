@@ -13,7 +13,9 @@ function Package(props) {
   const navigate = useNavigate();
 
   useEffect(() => {
-    fetch(`http://127.0.0.1:8000/api/orders/${props.orderId}/packages/${props.id}`)
+    let headers = {"Content-Type":"application/json", "Authorization":`Bearer ${getToken()}`};
+
+    fetch(`http://127.0.0.1:8000/api/orders/${props.orderId}/packages/${props.id}`, {headers, })
       .then(res => res.json())
       .then(
         (result) => {
@@ -35,11 +37,18 @@ function Package(props) {
     window.location.reload();
   }
 
+  function getToken(){
+    const tokenString = localStorage.getItem('token');
+    const userToken = JSON.parse(tokenString);
+    return userToken?.access_token;
+  }
+
   function updateDatabase() {
     fetch(`http://127.0.0.1:8000/api/orders/${orderId}/packages/${id}`, {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json',
+        "Authorization":`Bearer ${getToken()}`
       },
     })
       .then(() => {

@@ -5,16 +5,16 @@ import { useNavigate } from "react-router-dom";
 function Login({ setToken }) {
   const [email, setEmail] = useState();
   const [password, setPassword] = useState()
-  
+
   const navigate = useNavigate();
 
   useEffect(() => {
-    if(getToken()){
-      navigate('/');
+    if (getToken()) {
+      navigate('/orders');
     }
   })
 
-  function getToken(){
+  function getToken() {
     const tokenString = localStorage.getItem('token');
     const userToken = JSON.parse(tokenString);
     return userToken?.access_token;
@@ -45,24 +45,21 @@ function Login({ setToken }) {
       password
     });
     setToken(token);
-    navigate('/');
+    navigate('/orders');
   }
 
   return (
-    <div>
-      <h1>Please Log In</h1>
+    <div className="w-25 mx-auto pt-2">
       <form onSubmit={handleSubmit}>
-        <label>
-          Email:
-          <input type="email" onChange={e => setEmail(e.target.value)} />
-        </label>
-        <label>
-          Password:
-          <input type="password" onChange={e => setPassword(e.target.value)} />
-        </label>
-        <div>
-          <button type="submit">Submit</button>
+        <div class="mb-3">
+          <label for="email" class="form-label">Email</label>
+          <input name="email" type="email" class="form-control" id="email" onChange={e => setEmail(e.target.value)} />
         </div>
+        <div class="mb-3">
+          <label for="password" class="form-label">Password</label>
+          <input name="password" type="password" class="form-control" id="password" onChange={e => setPassword(e.target.value)} />
+        </div>
+        <input type="submit" value="Submit" class="btn btn-primary"></input>
       </form>
     </div>
   )

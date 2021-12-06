@@ -11,12 +11,12 @@ function Register() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if(getToken()){
+    if (getToken()) {
       navigate('/');
     }
   })
 
-  function getToken(){
+  function getToken() {
     const tokenString = localStorage.getItem('token');
     const userToken = JSON.parse(tokenString);
     return userToken?.access_token;
@@ -52,31 +52,31 @@ function Register() {
   return (
     <div>
       <h1>Register here</h1>
-      <form onSubmit={handleSubmit}>
-        <label>
-          Username:
-          <input type="text" onChange={e => setUsername(e.target.value)} />
-        </label>
-        <label>
-          First name:
-          <input type="text" onChange={e => setFirstName(e.target.value)} />
-        </label>
-        <label>
-          Last name:
-          <input type="text" onChange={e => setLastName(e.target.value)} />
-        </label>
-        <label>
-          Email:
-          <input type="email" onChange={e => setEmail(e.target.value)} />
-        </label>
-        <label>
-          Password:
-          <input type="password" onChange={e => setPassword(e.target.value)} />
-        </label>
-        <div>
-          <button type="submit">Submit</button>
-        </div>
-      </form>
+      <div className="w-25 mx-auto pt-2">
+        <form onSubmit={handleSubmit}>
+          <div class="mb-3">
+            <label for="username" class="form-label">Username</label>
+            <input name="username" type="text" class="form-control" id="username" onChange={e => setUsername(e.target.value)} />
+          </div>
+          <div class="mb-3">
+            <label for="firstname" class="form-label">First Name</label>
+            <input name="firstname" type="text" class="form-control" id="firstname" onChange={e => setFirstName(e.target.value)} />
+          </div>
+          <div class="mb-3">
+            <label for="lastname" class="form-label">Last Name</label>
+            <input name="lastname" type="text" class="form-control" id="lastname" onChange={e => setLastName(e.target.value)} />
+          </div>
+          <div class="mb-3">
+            <label for="email" class="form-label">Email</label>
+            <input name="email" type="email" class="form-control" id="email" onChange={e => setEmail(e.target.value)} />
+          </div>
+          <div class="mb-3">
+            <label for="password" class="form-label">Password</label>
+            <input name="password" type="password" class="form-control" id="password" onChange={e => setPassword(e.target.value)} />
+          </div>
+          <input type="submit" value="Submit" class="btn btn-primary"></input>
+        </form>
+      </div>
     </div>
   )
 }

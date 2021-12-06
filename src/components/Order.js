@@ -15,7 +15,9 @@ function Order(props) {
     setId(props.id); //sito neissaugo kol neiseina is bloko?
     setRecipient(props.recipient);
 
-    fetch(`http://127.0.0.1:8000/api/orders/${props.id}`)
+    let headers = {"Content-Type":"application/json", "Authorization":`Bearer ${getToken()}`};
+
+    fetch(`http://127.0.0.1:8000/api/orders/${props.id}`, {headers, })
       .then(res => res.json())
       .then(
         (result) => {
@@ -28,6 +30,12 @@ function Order(props) {
         }
       )
   }, [])
+  
+  function getToken(){
+    const tokenString = localStorage.getItem('token');
+    const userToken = JSON.parse(tokenString);
+    return userToken?.access_token;
+  }
 
   function reloadPage() {
     window.location.reload();
@@ -38,6 +46,7 @@ function Order(props) {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json',
+        "Authorization":`Bearer ${getToken()}`
       },
     })
       .then(() => {

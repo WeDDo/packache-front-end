@@ -16,7 +16,9 @@ function OrderList(props) {
       navigate('/login');
     }
 
-    fetch('http://127.0.0.1:8000/api/orders')
+    let headers = {"Content-Type":"application/json", "Authorization":`Bearer ${getToken()}`};
+    
+    fetch('http://127.0.0.1:8000/api/orders', {headers, })
       .then(res => res.json())
       .then(
         (result) => {

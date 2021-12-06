@@ -19,6 +19,7 @@ import PackageUpdate from './components/PackageUpdate';
 import Login from "./components/auth/Login";
 import useToken from './components/app/useToken';
 import Register from './components/auth/Register';
+import Logout from './components/auth/Logout';
 
 import Header from './components/app/Header';
 import Footer from './components/app/Footer';
@@ -34,6 +35,7 @@ function App() {
         <Routes>
           <Route path="/login" element={< Login setToken={setToken} />} />
           <Route path="/register" element={< Register />} />
+          <Route path="/logout" element={<Logout />} />
 
           <Route path="/items" element={<ItemList />} />
           <Route path="/items/:id" element={<ItemDetail />} />
