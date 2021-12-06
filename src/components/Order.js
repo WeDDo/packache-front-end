@@ -17,7 +17,7 @@ function Order(props) {
 
     let headers = {"Content-Type":"application/json", "Authorization":`Bearer ${getToken()}`};
 
-    fetch(`http://127.0.0.1:8000/api/orders/${props.id}`, {headers, })
+    fetch(`https://packache-app.azurewebsites.net/api/orders/${props.id}`, {headers, })
       .then(res => res.json())
       .then(
         (result) => {
@@ -48,11 +48,11 @@ function Order(props) {
   }
 
   function updateDatabase() {
-    fetch(`http://127.0.0.1:8000/api/orders/${id}`, {
+    fetch(`https://packache-app.azurewebsites.net/api/orders/${id}`, {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json',
-        "Authorization":`Bearer ${getToken()}`
+        "Authorization":`Bearer ${getToken()}`,
       },
     })
       .then(() => {

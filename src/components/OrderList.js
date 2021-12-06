@@ -16,9 +16,12 @@ function OrderList(props) {
       navigate('/login');
     }
 
-    let headers = {"Content-Type":"application/json", "Authorization":`Bearer ${getToken()}`};
-    
-    fetch('http://127.0.0.1:8000/api/orders', {headers, })
+    let headers = {
+      "Content-Type": "application/json",
+      "Authorization": `Bearer ${getToken()}`,
+    };
+
+    fetch('https://packache-app.azurewebsites.net/api/orders', { headers, })
       .then(res => res.json())
       .then(
         (result) => {
@@ -38,7 +41,7 @@ function OrderList(props) {
     return userToken?.access_token;
   }
 
-  function getUserRole(){
+  function getUserRole() {
     const tokenString = localStorage.getItem('token');
     const userToken = JSON.parse(tokenString);
     return userToken?.user.role;
@@ -61,18 +64,18 @@ function OrderList(props) {
       <div>
         {getUserRole() == 'admin' ? <Link to="/orders/add">
           <button className="btn btn-success m-1">Create order</button>
-        </Link> : null }
+        </Link> : null}
 
-        
-        <table className="table">
+
+        <table className="table mb-5">
           <thead className="thead-light">
             <tr>
               <th scope="col">Id</th>
               <th scope="col">Recipient</th>
               <th scope="col">Packages</th>
               <th scope="col">View</th>
-              {getUserRole() == 'admin' ? <th scope="col">Update</th> : null }
-              {getUserRole() == 'admin' ? <th scope="col">Delete</th> : null }
+              {getUserRole() == 'admin' ? <th scope="col">Update</th> : null}
+              {getUserRole() == 'admin' ? <th scope="col">Delete</th> : null}
             </tr>
           </thead>
           <tbody>

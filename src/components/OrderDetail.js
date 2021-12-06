@@ -19,7 +19,7 @@ const OrderDetail = () => {
 
     let headers = {"Content-Type":"application/json", "Authorization":`Bearer ${getToken()}`};
 
-    fetch(`http://127.0.0.1:8000/api/orders/${id}`, {headers, })
+    fetch(`https://packache-app.azurewebsites.net/api/orders/${id}`, {headers, })
       .then(res => res.json())
       .then(
         (result) => {

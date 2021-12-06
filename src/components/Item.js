@@ -40,7 +40,7 @@ function Item(props) {
   function updateDatabase() {
 
     
-    fetch(`http://127.0.0.1:8000/api/items/${id}`, {
+    fetch(`https://packache-app.azurewebsites.net/api/items/${id}`, {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json',

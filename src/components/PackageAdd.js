@@ -52,7 +52,7 @@ function PackageAdd() {
 
     let headers = {"Content-Type":"application/json", "Authorization":`Bearer ${getToken()}`};
 
-    fetch('http://127.0.0.1:8000/api/items', {headers, })
+    fetch('https://packache-app.azurewebsites.net/api/items', {headers, })
       .then(res => res.json())
       .then(
         (result) => {
@@ -69,11 +69,11 @@ function PackageAdd() {
   function updateDatabase() {
     const postData = { quantity_done: quantityDone, quantity, item_id: itemId, order_id: orderId };
     console.log(postData);
-    fetch(`http://127.0.0.1:8000/api/orders/${orderId}/packages/`, {
+    fetch(`https://packache-app.azurewebsites.net/api/orders/${orderId}/packages`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        "Authorization":`Bearer ${getToken()}`
+        'Authorization': `Bearer ${getToken()}`
       },
       body: JSON.stringify(postData),
     })

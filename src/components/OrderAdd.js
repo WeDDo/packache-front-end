@@ -31,11 +31,11 @@ function OrderAdd() {
   function updateDatabase() {
     const postData = { recipient: recipient };
 
-    fetch('http://127.0.0.1:8000/api/orders', {
+    fetch('https://packache-app.azurewebsites.net/api/orders', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        "Authorization":`Bearer ${getToken()}`
+        'Authorization':`Bearer ${getToken()}`
       },
       body: JSON.stringify(postData),
     })

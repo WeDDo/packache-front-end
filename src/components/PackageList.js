@@ -17,7 +17,7 @@ function PackageList(props) {
 
     let headers = {"Content-Type":"application/json", "Authorization":`Bearer ${getToken()}`};
 
-    fetch(`http://127.0.0.1:8000/api/orders/${props.orderId}/packages`, {headers, })
+    fetch(`https://packache-app.azurewebsites.net/api/orders/${props.orderId}/packages`, {headers, })
       .then(res => res.json())
       .then(
         (result) => {

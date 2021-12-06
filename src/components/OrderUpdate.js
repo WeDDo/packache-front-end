@@ -17,7 +17,12 @@ function OrderUpdate() {
       navigate('/login');
     }
 
-    fetch(`http://127.0.0.1:8000/api/orders/${id}`)
+    let headers = {
+      "Content-Type": "application/json",
+      "Authorization": `Bearer ${getToken()}`,
+    };
+
+    fetch(`https://packache-app.azurewebsites.net/api/orders/${id}`, {headers, })
       .then(res => res.json())
       .then(
         (result) => {
@@ -54,11 +59,11 @@ function OrderUpdate() {
   function updateDatabase() {
     const postData = { recipient, packages };
 
-    fetch(`http://127.0.0.1:8000/api/orders/${id}`, {
+    fetch(`https://packache-app.azurewebsites.net/api/orders/${id}`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
-        "Authorization":`Bearer ${getToken()}`
+        'Authorization':`Bearer ${getToken()}`,
       },
       body: JSON.stringify(postData),
     })

@@ -15,7 +15,7 @@ function Package(props) {
   useEffect(() => {
     let headers = {"Content-Type":"application/json", "Authorization":`Bearer ${getToken()}`};
 
-    fetch(`http://127.0.0.1:8000/api/orders/${props.orderId}/packages/${props.id}`, {headers, })
+    fetch(`https://packache-app.azurewebsites.net/api/orders/${props.orderId}/packages/${props.id}`, {headers, })
       .then(res => res.json())
       .then(
         (result) => {
@@ -44,11 +44,11 @@ function Package(props) {
   }
 
   function updateDatabase() {
-    fetch(`http://127.0.0.1:8000/api/orders/${orderId}/packages/${id}`, {
+    fetch(`https://packache-app.azurewebsites.net/api/orders/${orderId}/packages/${id}`, {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json',
-        "Authorization":`Bearer ${getToken()}`
+        'Authorization': `Bearer ${getToken()}`
       },
     })
       .then(() => {

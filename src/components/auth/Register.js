@@ -23,7 +23,7 @@ function Register() {
   }
 
   async function registerUser(credetials) {
-    await fetch('http://127.0.0.1:8000/api/register', {
+    await fetch('https://packache-app.azurewebsites.net/api/register', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'

@@ -30,7 +30,7 @@ function ItemAdd() {
 
   function addItemToDatabase() {
     const postData = { name };
-    fetch('http://127.0.0.1:8000/api/items', {
+    fetch('https://packache-app.azurewebsites.net/api/items', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

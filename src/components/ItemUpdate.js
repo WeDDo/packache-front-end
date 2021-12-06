@@ -18,10 +18,11 @@ function ItemUpdate() {
 
     let headers = {"Content-Type":"application/json", "Authorization":`Bearer ${getToken()}`};
 
-    fetch(`http://127.0.0.1:8000/api/items/${id}`, {headers, })
+    fetch(`https://packache-app.azurewebsites.net/api/items/${id}`, {headers, })
       .then(res => res.json())
       .then(
         (result) => {
+          console.log('result aaa');
           console.log(result.name);
           setIsLoaded(true);
           setName(result.name);
@@ -52,7 +53,7 @@ function ItemUpdate() {
 
   function addItemToDatabase() {
     const postData = { name };
-    fetch(`http://127.0.0.1:8000/api/items/${id}`, {
+    fetch(`https://packache-app.azurewebsites.net/api/items/${id}`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',

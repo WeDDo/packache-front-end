@@ -23,7 +23,7 @@ function Login({ setToken }) {
 
   async function loginUser(credetials) {
     let token = '';
-    await fetch('http://127.0.0.1:8000/api/login', {
+    await fetch('https://packache-app.azurewebsites.net/api/login', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
