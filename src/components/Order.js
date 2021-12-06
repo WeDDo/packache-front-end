@@ -37,6 +37,12 @@ function Order(props) {
     return userToken?.access_token;
   }
 
+  function getUserRole(){
+    const tokenString = localStorage.getItem('token');
+    const userToken = JSON.parse(tokenString);
+    return userToken?.user.role;
+  }
+
   function reloadPage() {
     window.location.reload();
   }
@@ -83,8 +89,8 @@ function Order(props) {
         <td>{recipient}</td>
         <td>{packageList}</td>
         <td><Link to={`/orders/${id}`}><button type="button" className="btn btn-primary">View</button></Link></td>
-        <td><Link to={`update/${id}`}><button type="button" className="btn btn-secondary">Update</button></Link></td>
-        <td><button type="button" onClick={handleDeleteClick} className="btn btn-danger">Delete</button></td>
+        <td>{getUserRole() == 'admin' ? <Link to={`update/${id}`}><button type="button" className="btn btn-secondary">Update</button></Link> : null }</td>
+        <td>{getUserRole() == 'admin' ? <button type="button" onClick={handleDeleteClick} className="btn btn-danger">Delete</button> : null }</td>
       </tr>
     );
 

@@ -55,7 +55,7 @@ function PackageList(props) {
         <Link to={`/orders/${props.orderId}/packages/add`}>
           <button className="btn btn-success m-1">Add package</button>
         </Link>
-        <table className="table">
+        <table className="table mb-5">
           <thead className="thead-light">
             <tr>
               <th scope="col">Id</th>

@@ -23,16 +23,18 @@ import Logout from './components/auth/Logout';
 
 import Header from './components/app/Header';
 import Footer from './components/app/Footer';
+import UserInfo from './components/auth/UserInfo';
 
 function App() {
   const { token, setToken } = useToken();
-
   return (
     <div>
       <BrowserRouter>
         <Header />
         <Footer />
         <Routes>
+          <Route path="/userinfo" element={< UserInfo />} />
+
           <Route path="/login" element={< Login setToken={setToken} />} />
           <Route path="/register" element={< Register />} />
           <Route path="/logout" element={<Logout />} />

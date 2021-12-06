@@ -12,6 +12,7 @@ function Login({ setToken }) {
     if (getToken()) {
       navigate('/orders');
     }
+
   })
 
   function getToken() {

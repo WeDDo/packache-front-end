@@ -74,9 +74,9 @@ function Item(props) {
     <tr>
       <td>{id}</td>
       <td>{name}</td>
-      <td><Link to={`/items/${id}`}><button type="button" className="btn btn-primary">View</button></Link></td>
-      <td><Link to={`update/${id}`}><button type="button" className="btn btn-secondary">Update</button></Link></td>
-      <td><button type="button" onClick={handleDeleteClick} className="btn btn-danger">Delete</button></td>
+      <td>{getUserRole() == 'employee' || getUserRole() == 'admin' ? <Link to={`/items/${id}`}><button type="button" className="btn btn-primary">View</button></Link> : null }</td>
+      <td>{getUserRole() == 'admin' ? <Link to={`update/${id}`}><button type="button" className="btn btn-secondary">Update</button></Link> : null }</td>
+      <td>{getUserRole() == 'admin' ? <button type="button" onClick={handleDeleteClick} className="btn btn-danger">Delete</button> : null }</td>
     </tr>
   );
 

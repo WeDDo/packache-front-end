@@ -38,6 +38,12 @@ function OrderList(props) {
     return userToken?.access_token;
   }
 
+  function getUserRole(){
+    const tokenString = localStorage.getItem('token');
+    const userToken = JSON.parse(tokenString);
+    return userToken?.user.role;
+  }
+
   if (error) {
     return <div>Error: {error.message}</div>;
   }
@@ -53,9 +59,11 @@ function OrderList(props) {
 
     return (
       <div>
-        <Link to="/orders/add">
+        {getUserRole() == 'admin' ? <Link to="/orders/add">
           <button className="btn btn-success m-1">Create order</button>
-        </Link>
+        </Link> : null }
+
+        
         <table className="table">
           <thead className="thead-light">
             <tr>
@@ -63,8 +71,8 @@ function OrderList(props) {
               <th scope="col">Recipient</th>
               <th scope="col">Packages</th>
               <th scope="col">View</th>
-              <th scope="col">Update</th>
-              <th scope="col">Delete</th>
+              {getUserRole() == 'admin' ? <th scope="col">Update</th> : null }
+              {getUserRole() == 'admin' ? <th scope="col">Delete</th> : null }
             </tr>
           </thead>
           <tbody>

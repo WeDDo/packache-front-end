@@ -8,7 +8,7 @@ function Header() {
     <footer>
       <nav class="navbar fixed-bottom navbar-light bg-light">
         <div class="container-fluid">
-          <div>© 2021 Packache Team</div>
+          <div style={{fontFamily:"Anton", display:"inline-block"}}>© 2021 Packache Team</div>
         </div>
       </nav>
     </footer>
